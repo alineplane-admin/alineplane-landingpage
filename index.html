@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Audit-ready infra from your repo | Alineplane</title>
   <meta name="description" content="Paste a GitHub repo. Get an evidence-backed production plan with Crossplane claims. We onboard and apply with you — keeping desired, actual, and proof in sync.">
   <link rel="canonical" href="https://alineplane.com/">
@@ -63,12 +63,12 @@
       <div class="container hero-inner">
         <p class="pill reveal"><span class="pill-dot" aria-hidden="true"></span>For post-traction teams with 1K+ MAU</p>
 
-        <h1 class="reveal">Infrastructure that scales with <em>compliance</em>, not&nbsp;chaos.</h1>
+        <h1 class="reveal">We build it <em>and</em> run&nbsp;it.</h1>
 
         <p class="lede reveal">
-          AI made the app cheap. The layer underneath is still expert work.
-          Send us a GitHub repo — we return an evidence-backed plan, then apply it
-          in your cloud with you.
+          Most platforms design infrastructure and export IaC.
+          Alineplane designs, deploys, <em>and operates</em> — in your cloud, with your approval.
+          Code to compliance-ready production in one conversation.
         </p>
 
         <form class="repo-form reveal" id="repo-form" data-portal-path="/analyze" novalidate>
@@ -205,33 +205,93 @@
     <!-- How it works -->
     <section class="section" id="how-it-works">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head center">
           <p class="eyebrow reveal">How it works</p>
-          <h2 class="reveal">Four steps. Analyze first.</h2>
-          <p class="section-lead reveal">Paste, review, approve, watch. Nothing is created until you approve the plan.</p>
+          <h2 class="reveal">From repo to production in six steps.</h2>
+          <p class="section-lead reveal">The Alineplane flow: analyze, recommend, plan, deploy, onboard, optimize. Nothing is created until you approve.</p>
         </div>
-        <ol class="steps">
-          <li class="step reveal">
-            <span class="step-num">1</span>
-            <h3>Paste the repo</h3>
-            <p>Any public GitHub URL. We read JavaScript, TypeScript, and Python today.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step-num">2</span>
-            <h3>Review the plan</h3>
-            <p>Every requirement cites a file and line, plus an architecture diagram and a cost estimate.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step-num">3</span>
-            <h3>Onboard and apply</h3>
-            <p>You grant a scoped role. We apply the approved plan in your account, with you.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step-num">4</span>
-            <h3>Watch the dashboard</h3>
-            <p>Live resource status, load results, and a change trail — in one place.</p>
-          </li>
-        </ol>
+
+        <!-- Animated flow diagram -->
+        <div class="flow-diagram" id="flow-diagram" aria-label="Alineplane infrastructure workflow">
+          <svg class="flow-connectors" aria-hidden="true"></svg>
+          
+          <div class="flow-step" data-step="1" data-flow-id="connect">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                <path d="M16 11h6m-3-3l3 3-3 3"/>
+              </svg>
+            </div>
+            <h3>1. Connect repo</h3>
+            <p>Paste any public GitHub URL. Read-only access to your code signals.</p>
+          </div>
+
+          <div class="flow-step" data-step="2" data-flow-id="analyze">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <h3>2. Analyzer reads signals</h3>
+            <p>Languages, frameworks, Dockerfiles, databases, queues, compliance needs — all cited by file and line.</p>
+          </div>
+
+          <div class="flow-step" data-step="3" data-flow-id="recommend">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <h3>3. Recommend architecture</h3>
+            <p>Compare Azure, AWS, GCP options. Flag unsupported services. Explain every choice.</p>
+          </div>
+
+          <div class="flow-step" data-step="4" data-flow-id="plan">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <h3>4. Output plan + proof</h3>
+            <p>Architecture diagram, cost estimate, compliance proof. HIPAA/PCI get dedicated clusters.</p>
+          </div>
+
+          <div class="flow-step" data-step="5" data-flow-id="deploy">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>5. Deploy with Crossplane</h3>
+            <p>We onboard and apply the plan in your cloud. You grant scoped access; we never become account owner.</p>
+          </div>
+
+          <div class="flow-step" data-step="6" data-flow-id="monitor">
+            <div class="flow-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3>6. Monitor + right-size</h3>
+            <p>Ongoing monitoring, load analysis, cost optimization. Keep desired, actual, and proof in sync.</p>
+          </div>
+        </div>
+
+        <p class="flow-footer reveal">
+          <strong>First-time visitors understand this in ~10 seconds.</strong>
+          The whole conversation — from repo URL to compliance-ready production — happens in one place.
+        </p>
       </div>
     </section>
 
