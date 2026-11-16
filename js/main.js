@@ -204,6 +204,107 @@ const PORTAL_ORIGIN = "";
     });
   }
 
+  /* Flow diagram animation ----------------------------------------------- */
+
+  function setupFlowDiagram() {
+    const diagram = document.getElementById("flow-diagram");
+    if (!diagram) return;
+
+    const steps = diagram.querySelectorAll(".flow-step");
+    const svg = diagram.querySelector(".flow-connectors");
+    const NS = "http://www.w3.org/2000/svg";
+
+    function showAllSteps() {
+      steps.forEach((step) => step.classList.add("is-visible"));
+    }
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      showAllSteps();
+      return;
+    }
+
+    function layout() {
+      svg.innerHTML = "";
+      const box = diagram.getBoundingClientRect();
+      svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
+
+      for (let i = 0; i < steps.length - 1; i++) {
+        const from = steps[i].getBoundingClientRect();
+        const to = steps[i + 1].getBoundingClientRect();
+
+        const x1 = from.left + from.width / 2 - box.left;
+        const y1 = from.bottom - box.top;
+        const x2 = to.left + to.width / 2 - box.left;
+        const y2 = to.top - box.top;
+
+        const path = document.createElementNS(NS, "path");
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const midY = y1 + dy * 0.5;
+
+        const d = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+        path.setAttribute("d", d);
+        path.setAttribute("class", "flow-connector-line");
+        svg.appendChild(path);
+      }
+    }
+
+    function animateFlow() {
+      layout();
+      const lines = svg.querySelectorAll(".flow-connector-line");
+
+      steps.forEach((step, i) => {
+        setTimeout(() => {
+          step.classList.add("is-visible");
+          step.classList.add("is-active");
+          
+          setTimeout(() => step.classList.remove("is-active"), 600);
+
+          if (i < lines.length) {
+            lines[i].classList.add("is-drawing");
+            setTimeout(() => {
+              lines[i].classList.remove("is-drawing");
+              lines[i].classList.add("is-drawn");
+            }, 50);
+          }
+        }, i * 250);
+      });
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            animateFlow();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(diagram);
+
+    let resizeFrame = 0;
+    const relayout = () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        if (steps[0].classList.contains("is-visible")) {
+          layout();
+          svg.querySelectorAll(".flow-connector-line").forEach((line) => {
+            line.classList.add("is-drawn");
+            line.classList.remove("is-drawing");
+          });
+        }
+      });
+    };
+
+    window.addEventListener("resize", relayout);
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(relayout).observe(diagram);
+    }
+  }
+
   /* Motion --------------------------------------------------------------- */
 
   function setupReveal() {
@@ -504,6 +605,7 @@ const PORTAL_ORIGIN = "";
     setupVideo();
     setupReveal();
     setupCanvas();
+    setupFlowDiagram();
     setupHeader();
     setupMenu();
     setupScrollSpy();
