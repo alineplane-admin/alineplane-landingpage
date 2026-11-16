@@ -991,7 +991,7 @@ p { text-wrap: pretty; }
   .hero { padding: 56px 0 80px; }
   .pill { font-size: 0.8125rem; }
   .repo-form { flex-direction: column; padding: 8px; }
-  .repo-form input { height: 44px; }
+  .repo-form input { height: 44px; font-size: max(16px, 0.9rem); }
   .hero-meta { flex-direction: column; gap: 12px; }
 
   .canvas { margin-top: 56px; }

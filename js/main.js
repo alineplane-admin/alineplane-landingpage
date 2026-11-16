@@ -143,8 +143,26 @@ const PORTAL_ORIGIN = "";
     const success = document.getElementById("signup-success");
     if (!form || !success) return;
 
+    const repoInput = form.querySelector("#repo");
+    if (repoInput) {
+      repoInput.addEventListener("input", () => {
+        repoInput.setCustomValidity("");
+      });
+    }
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      if (repoInput) {
+        const repoValue = repoInput.value.trim();
+        if (repoValue && !normalizeRepo(repoValue)) {
+          repoInput.setCustomValidity("Enter a public GitHub repo, like github.com/your-org/your-app");
+          repoInput.reportValidity();
+          return;
+        }
+        repoInput.setCustomValidity("");
+      }
+
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
