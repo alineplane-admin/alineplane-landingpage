@@ -218,11 +218,6 @@ const PORTAL_ORIGIN = "";
       steps.forEach((step) => step.classList.add("is-visible"));
     }
 
-    if (reducedMotion || !("IntersectionObserver" in window)) {
-      showAllSteps();
-      return;
-    }
-
     function layout() {
       svg.innerHTML = "";
       const box = diagram.getBoundingClientRect();
@@ -238,37 +233,64 @@ const PORTAL_ORIGIN = "";
         const y2 = to.top - box.top;
 
         const path = document.createElementNS(NS, "path");
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-        const midY = y1 + dy * 0.5;
+        let d;
 
-        const d = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+        // Detect if cards are side-by-side or stacked
+        if (Math.abs(y2 - y1) < 10) {
+          // Horizontal: same row, connect left-to-right
+          const xStart = from.right - box.left;
+          const xEnd = to.left - box.left;
+          const yMid = (from.top + from.height / 2) - box.top;
+          const midX = xStart + (xEnd - xStart) * 0.5;
+          d = `M${xStart},${yMid} C${midX},${yMid} ${midX},${yMid} ${xEnd},${yMid}`;
+        } else {
+          // Vertical: different rows, connect top-to-bottom
+          const midY = y1 + (y2 - y1) * 0.5;
+          d = `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`;
+        }
+
         path.setAttribute("d", d);
         path.setAttribute("class", "flow-connector-line");
         svg.appendChild(path);
       }
     }
 
-    function animateFlow() {
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      showAllSteps();
       layout();
-      const lines = svg.querySelectorAll(".flow-connector-line");
+      return;
+    }
 
-      steps.forEach((step, i) => {
-        setTimeout(() => {
-          step.classList.add("is-visible");
-          step.classList.add("is-active");
+    function animateFlow() {
+      // Wait for entrance transform to finish before measuring
+      steps.forEach((step) => step.classList.add("is-visible"));
+      
+      setTimeout(() => {
+        layout();
+        const lines = svg.querySelectorAll(".flow-connector-line");
+
+        // Animate each line drawing
+        lines.forEach((line, i) => {
+          const length = line.getTotalLength();
+          line.style.strokeDasharray = length;
+          line.style.strokeDashoffset = length;
           
-          setTimeout(() => step.classList.remove("is-active"), 600);
+          setTimeout(() => {
+            line.classList.add("is-drawing");
+            line.style.strokeDashoffset = "0";
+          }, (i + 1) * 250);
+        });
 
-          if (i < lines.length) {
-            lines[i].classList.add("is-drawing");
+        // Pulse icons as lines reach them
+        steps.forEach((step, i) => {
+          if (i > 0) {
             setTimeout(() => {
-              lines[i].classList.remove("is-drawing");
-              lines[i].classList.add("is-drawn");
-            }, 50);
+              step.classList.add("is-active");
+              setTimeout(() => step.classList.remove("is-active"), 600);
+            }, i * 250);
           }
-        }, i * 250);
-      });
+        });
+      }, 400);
     }
 
     const observer = new IntersectionObserver(
@@ -291,10 +313,6 @@ const PORTAL_ORIGIN = "";
       resizeFrame = requestAnimationFrame(() => {
         if (steps[0].classList.contains("is-visible")) {
           layout();
-          svg.querySelectorAll(".flow-connector-line").forEach((line) => {
-            line.classList.add("is-drawn");
-            line.classList.remove("is-drawing");
-          });
         }
       });
     };
