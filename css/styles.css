@@ -286,12 +286,9 @@ p { text-wrap: pretty; }
   inset: 0;
   z-index: 1000;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--cream) 0%, rgba(143, 181, 154, 0.08) 50%, rgba(200, 105, 59, 0.06) 100%);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s var(--ease-decelerate), visibility 0.5s;
+  transition: opacity 0.4s var(--ease-decelerate), visibility 0.4s;
   pointer-events: none;
 }
 
@@ -308,38 +305,67 @@ p { text-wrap: pretty; }
   opacity: 1;
 }
 
+/* Scrim - dimmed overlay on left side (desktop only) */
+.staggered-menu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 26, 23, 0.7);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-decelerate);
+}
+
+.staggered-menu.is-open::before {
+  opacity: 1;
+}
+
 .staggered-menu-inner {
   position: relative;
-  width: 100%;
-  max-width: 800px;
-  padding: 48px 32px;
+  margin-left: auto;
+  width: 55%;
+  min-width: 480px;
+  max-width: 720px;
+  height: 100vh;
+  padding: 80px 64px 64px;
+  background: var(--cream);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-decelerate);
+}
+
+.staggered-menu.is-open .staggered-menu-inner {
+  transform: translateX(0);
 }
 
 .staggered-menu-close {
   position: absolute;
   top: 32px;
-  right: 32px;
+  right: 64px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid rgba(15, 26, 23, 0.15);
-  border-radius: 999px;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(15, 26, 23, 0.18);
+  border-radius: 50%;
   background: transparent;
   color: var(--forest);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s, transform 0.15s var(--ease-decelerate);
 }
 
 .staggered-menu-close:hover {
   background: rgba(15, 26, 23, 0.05);
-  border-color: rgba(15, 26, 23, 0.25);
+  border-color: rgba(15, 26, 23, 0.3);
 }
 
 .staggered-menu-close:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 .staggered-menu-nav {
@@ -377,7 +403,7 @@ p { text-wrap: pretty; }
 
 .staggered-menu-label {
   flex: 1;
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -385,10 +411,12 @@ p { text-wrap: pretty; }
 }
 
 .staggered-menu-num {
+  flex-shrink: 0;
   font-family: var(--mono);
-  font-size: 0.875rem;
-  color: rgba(15, 26, 23, 0.4);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  color: rgba(15, 26, 23, 0.5);
+  letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .staggered-menu-item-contact {
@@ -1233,12 +1261,18 @@ html:not(.js) .flow-step {
   .canvas-graph { column-gap: 40px; }
 
   .staggered-menu-inner {
-    padding: 40px 24px;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 80px 32px 48px;
   }
 
   .staggered-menu-close {
     top: 24px;
-    right: 24px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.125rem;
   }
 
   .staggered-menu-label {
