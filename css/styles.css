@@ -836,6 +836,7 @@ p { text-wrap: pretty; }
 /* Video ------------------------------------------------------------------ */
 
 .video {
+  position: relative;
   max-width: 940px;
   margin: 0 auto;
   border: 1px solid var(--line-strong);
