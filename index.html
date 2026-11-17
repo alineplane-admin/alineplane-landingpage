@@ -53,40 +53,80 @@
 
       <div class="header-end">
         <a href="#review" class="btn btn-primary btn-sm" data-event="book_review_click">Book a review</a>
-        <button class="burger" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
-          <span></span><span></span>
+        <button class="menu-toggle" type="button" aria-controls="staggered-menu" aria-expanded="false" aria-label="Open menu">
+          Menu +
         </button>
       </div>
     </div>
   </header>
 
+  <!-- Staggered Menu Panel -->
+  <div id="staggered-menu" class="staggered-menu" aria-hidden="true">
+    <div class="staggered-menu-inner">
+      <button class="staggered-menu-close" type="button" aria-label="Close menu">×</button>
+      <nav class="staggered-menu-nav" aria-label="Main menu">
+        <a href="#top" class="staggered-menu-item" data-index="01">
+          <span class="staggered-menu-label">Home</span>
+          <span class="staggered-menu-num">01</span>
+        </a>
+        <a href="#how-it-works" class="staggered-menu-item" data-index="02">
+          <span class="staggered-menu-label">How it works</span>
+          <span class="staggered-menu-num">02</span>
+        </a>
+        <a href="#scans" class="staggered-menu-item" data-index="03">
+          <span class="staggered-menu-label">Scans</span>
+          <span class="staggered-menu-num">03</span>
+        </a>
+        <a href="#tiers" class="staggered-menu-item" data-index="04">
+          <span class="staggered-menu-label">Pricing</span>
+          <span class="staggered-menu-num">04</span>
+        </a>
+        <a href="#compliance" class="staggered-menu-item" data-index="05">
+          <span class="staggered-menu-label">Evidence</span>
+          <span class="staggered-menu-num">05</span>
+        </a>
+        <a href="#faq" class="staggered-menu-item" data-index="06">
+          <span class="staggered-menu-label">FAQ</span>
+          <span class="staggered-menu-num">06</span>
+        </a>
+        <a href="mailto:hello@alineplane.com" class="staggered-menu-item staggered-menu-item-contact" data-index="07">
+          <span class="staggered-menu-label">Contact</span>
+          <span class="staggered-menu-num">07</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
   <main id="main">
     <!-- Hero -->
     <section class="hero" id="top">
-      <div class="container hero-inner">
-        <p class="pill reveal"><span class="pill-dot" aria-hidden="true"></span>For post-traction teams with 1K+ MAU</p>
+      <div class="container hero-inner hero-asymmetric">
+        <div class="hero-content">
+          <p class="pill reveal"><span class="pill-dot" aria-hidden="true"></span>For post-traction teams with 1K+ MAU</p>
 
-        <h1 class="reveal">We build it <em>and</em> run&nbsp;it.</h1>
+          <h1 class="reveal hero-headline">We build it <em>and</em> run&nbsp;it.</h1>
 
-        <p class="lede reveal">
-          Most platforms design infrastructure and export IaC.
-          Alineplane designs, deploys, <em>and operates</em> — in your cloud, with your approval.
-          Code to compliance-ready production in one conversation.
-        </p>
+          <p class="lede reveal">
+            Most platforms design infrastructure and export IaC.
+            Alineplane designs, deploys, <em>and operates</em> — in your cloud, with your approval.
+            Code to compliance-ready production in one conversation.
+          </p>
+        </div>
 
-        <form class="repo-form reveal" id="repo-form" data-portal-path="/analyze" novalidate>
-          <label class="sr-only" for="hero-repo">Public GitHub repository URL</label>
-          <input id="hero-repo" name="repo" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="github.com/your-org/your-app" required>
-          <button type="submit" class="btn btn-primary" data-event="analyze_click">Get my plan</button>
-        </form>
+          <form class="repo-form reveal" id="repo-form" data-portal-path="/analyze" novalidate>
+            <label class="sr-only" for="hero-repo">Public GitHub repository URL</label>
+            <input id="hero-repo" name="repo" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="github.com/your-org/your-app" required>
+            <button type="submit" class="btn btn-primary" data-event="analyze_click">Get my plan</button>
+          </form>
 
-        <p class="hero-meta reveal">
-          <span>Nothing is created until you approve.</span>
-          <a href="#demo" class="text-link" data-event="demo_click">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor"/></svg>
-            Watch the 2-min demo
-          </a>
-        </p>
+          <p class="hero-meta reveal">
+            <span>Nothing is created until you approve.</span>
+            <a href="#demo" class="text-link" data-event="demo_click">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor"/></svg>
+              Watch the 2-min demo
+            </a>
+          </p>
+        </div>
       </div>
 
       <!-- Product preview: the repo → services → datastores canvas -->
@@ -414,9 +454,9 @@
     </section>
 
     <!-- Three states -->
-    <section class="section" id="states">
+    <section class="section section-asymmetric" id="states">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head section-head-asymmetric">
           <p class="eyebrow reveal">Live state</p>
           <h2 class="reveal">Three states, kept in sync for you.</h2>
           <p class="section-lead reveal">

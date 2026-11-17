@@ -193,11 +193,13 @@ const PORTAL_ORIGIN = "";
     document.querySelectorAll("[data-video]").forEach((facade) => {
       facade.addEventListener("click", () => {
         const id = facade.getAttribute("data-video");
+        const origin = encodeURIComponent(window.location.origin);
         const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${origin}`;
         iframe.title = "Alineplane demo";
         iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
         iframe.allowFullscreen = true;
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
         facade.replaceWith(iframe);
         iframe.focus();
       });
@@ -616,6 +618,110 @@ const PORTAL_ORIGIN = "";
     targets.forEach((section) => observer.observe(section));
   }
 
+  /* Staggered Menu -------------------------------------------------------- */
+
+  function setupStaggeredMenu() {
+    const toggle = document.querySelector(".menu-toggle");
+    const menu = document.getElementById("staggered-menu");
+    const closeBtn = menu && menu.querySelector(".staggered-menu-close");
+    const items = menu ? [...menu.querySelectorAll(".staggered-menu-item")] : [];
+    if (!toggle || !menu) return;
+
+    const focusableEls = [closeBtn, ...items].filter(Boolean);
+    let isOpen = false;
+
+    const open = () => {
+      if (isOpen) return;
+      isOpen = true;
+      document.body.style.overflow = "hidden";
+      menu.classList.add("is-opening");
+      menu.setAttribute("aria-hidden", "false");
+      toggle.setAttribute("aria-expanded", "true");
+
+      // Stagger items
+      items.forEach((item, i) => {
+        item.style.setProperty("--stagger-delay", `${i * 0.08}s`);
+      });
+
+      requestAnimationFrame(() => {
+        menu.classList.add("is-open");
+        if (closeBtn) closeBtn.focus();
+      });
+    };
+
+    const close = () => {
+      if (!isOpen) return;
+      isOpen = false;
+      document.body.style.overflow = "";
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+
+      const onTransitionEnd = () => {
+        menu.classList.remove("is-opening");
+        menu.setAttribute("aria-hidden", "true");
+        menu.removeEventListener("transitionend", onTransitionEnd);
+      };
+
+      menu.addEventListener("transitionend", onTransitionEnd);
+      toggle.focus();
+    };
+
+    toggle.addEventListener("click", () => (isOpen ? close() : open()));
+    if (closeBtn) closeBtn.addEventListener("click", close);
+
+    items.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const href = item.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          e.preventDefault();
+          close();
+          setTimeout(() => {
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+            }
+          }, reducedMotion ? 0 : 300);
+        } else {
+          close();
+        }
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      if (!isOpen) return;
+
+      if (e.key === "Escape") {
+        close();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focused = document.activeElement;
+        const currentIndex = focusableEls.indexOf(focused);
+
+        if (e.shiftKey) {
+          // Shift+Tab
+          if (currentIndex <= 0) {
+            e.preventDefault();
+            focusableEls[focusableEls.length - 1].focus();
+          }
+        } else {
+          // Tab
+          if (currentIndex >= focusableEls.length - 1) {
+            e.preventDefault();
+            focusableEls[0].focus();
+          }
+        }
+      }
+    });
+
+    // Close on outside click
+    menu.addEventListener("click", (e) => {
+      if (e.target === menu) close();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     setupAnalyticsClicks();
     setupRepoForm();
@@ -627,5 +733,6 @@ const PORTAL_ORIGIN = "";
     setupHeader();
     setupMenu();
     setupScrollSpy();
+    setupStaggeredMenu();
   });
 })();
