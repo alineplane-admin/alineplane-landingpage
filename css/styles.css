@@ -859,7 +859,7 @@ p { text-wrap: pretty; }
 
 .tiers {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
   align-items: stretch;
 }
@@ -1046,7 +1046,7 @@ p { text-wrap: pretty; }
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .flow-diagram { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 32px; }
   .split, .cta-inner { grid-template-columns: 1fr; gap: 48px; }
-  .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
 }
 
 @media (max-width: 860px) {
@@ -1081,6 +1081,7 @@ p { text-wrap: pretty; }
   .container { padding: 0 20px; }
   .section { padding: 80px 0; }
   .section-head { margin-bottom: 40px; }
+  .tiers { grid-template-columns: 1fr; }
 
   .header-end .btn-sm { display: none; }
 
