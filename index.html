@@ -198,18 +198,19 @@
     <!-- Demo video -->
     <section class="section" id="demo">
       <div class="container">
-        <div class="section-head center">
+        <div class="section-head">
           <p class="eyebrow reveal">See it in action</p>
           <h2 class="reveal">Repo in. Plan, diagram, and proof out.</h2>
         </div>
         <div class="video reveal">
-          <button class="video-facade" type="button" data-video="TxvaQ2jGvU4" aria-label="Play the 2-minute Alineplane demo" data-event="video_play">
-            <img src="https://i.ytimg.com/vi/TxvaQ2jGvU4/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.remove()">
-            <span class="video-play" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
-            </span>
-            <span class="video-len">2 min</span>
-          </button>
+          <iframe
+            src="https://www.youtube.com/embed/TxvaQ2jGvU4?autoplay=1&mute=1&loop=1&playlist=TxvaQ2jGvU4&playsinline=1&rel=0&controls=0&origin=https://alineplane.com"
+            title="Alineplane demo"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            loading="lazy"
+            style="border: 0; width: 100%; height: 100%; position: absolute; top: 0; left: 0;"
+          ></iframe>
         </div>
       </div>
     </section>
@@ -248,7 +249,7 @@
     <!-- How it works -->
     <section class="section" id="how-it-works">
       <div class="container">
-        <div class="section-head center">
+        <div class="section-head">
           <p class="eyebrow reveal">How it works</p>
           <h2 class="reveal">From repo to production in six steps.</h2>
           <p class="section-lead reveal">The Alineplane flow: analyze, recommend, plan, deploy, onboard, optimize. Nothing is created until you approve.</p>
@@ -256,8 +257,6 @@
 
         <!-- Animated flow diagram -->
         <div class="flow-diagram" id="flow-diagram" aria-label="Alineplane infrastructure workflow">
-          <svg class="flow-connectors" aria-hidden="true"></svg>
-          
           <div class="flow-step" data-step="1" data-flow-id="connect">
             <div class="flow-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -528,7 +527,7 @@ guardrails    <span class="ok">enforced</span></code></pre>
     <!-- Pricing -->
     <section class="section paper" id="tiers">
       <div class="container">
-        <div class="section-head center">
+        <div class="section-head">
           <p class="eyebrow reveal">Pricing</p>
           <h2 class="reveal">A fraction of one platform hire.</h2>
           <p class="section-lead reveal">
@@ -546,7 +545,7 @@ guardrails    <span class="ok">enforced</span></code></pre>
         <div class="reveal" style="max-width: 840px; margin: 0 auto 32px; padding: 16px 24px; border: 2px solid var(--copper); border-radius: var(--radius); background: var(--surface); text-align: center;">
           <p style="margin: 0; font-size: 1.0625rem; color: var(--text);">
             <strong style="color: var(--copper);">Founding Customer Offer:</strong> 50% off your first 6 months in exchange for a case study. 
-            <span style="color: var(--muted);">Limited to first <strong>[SLOTS_REMAINING]</strong> customers. Offer ends <strong>[END_DATE]</strong>.</span>
+            <span style="color: var(--muted);">Limited to our first founding customers.</span>
           </p>
         </div>
 
