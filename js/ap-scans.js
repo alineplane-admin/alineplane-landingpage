@@ -154,7 +154,7 @@
       else if (k === "ArrowLeft" || k === "PageUp") { go(cur - 1, true); e.preventDefault(); }
       else if (k === "Home") { go(0, true); e.preventDefault(); }
       else if (k === "End") { go(n - 1, true); e.preventDefault(); }
-      else if ((k === " " || k === "Spacebar") && !onButton) { go(cur + 1, true); e.preventDefault(); }
+      else if ((k === " " || k === "Spacebar") && !onButton) { autoplay = !autoplay; if (autoplay && prog && prog.playState === "finished") go(cur + 1, true); sync(); setActive(cur); e.preventDefault(); }
       else if ((k === "f" || k === "F") && !onButton) { fullscreen(); e.preventDefault(); }
     });
 
