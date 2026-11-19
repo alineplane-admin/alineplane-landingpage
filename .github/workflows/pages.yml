@@ -30,7 +30,7 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir -p _site
-          cp -r css js index.html og.png CNAME .nojekyll _site/
+          cp -r css js index.html og.png CNAME .nojekyll robots.txt sitemap.xml favicon.ico favicon.svg apple-touch-icon.png icon-512.png _site/
           ls -la _site/
 
       - name: Upload artifact
