@@ -181,11 +181,12 @@
 .ap-scans.is-ready .ap-scans-edge{stroke-dasharray:1;stroke-dashoffset:1}
 .ap-scans.is-ready .ap-scans-edge.is-gapedge{stroke-dasharray:none;opacity:0}
 .ap-scans.is-ready .is-play .ap-scans-edge{animation:aps-draw 1s var(--aps-ease) var(--d,0ms) both}
-.ap-scans.is-ready .is-play .ap-scans-edge.is-gapedge{animation:aps-fade .6s ease var(--d,0ms) both}
+.ap-scans.is-ready .is-play .ap-scans-edge.is-gapedge{animation:aps-fade .6s ease var(--d,0ms) both;stroke-dasharray:3 4}
 .ap-scans.is-ready .ap-scans-box rect{stroke-dasharray:1;stroke-dashoffset:1}
 .ap-scans.is-ready .ap-scans-box.is-cde rect,.ap-scans.is-ready .ap-scans-ns rect{stroke-dasharray:none;opacity:0}
 .ap-scans.is-ready .is-play .ap-scans-box rect{animation:aps-draw 1.2s var(--aps-ease) var(--d,0ms) both}
-.ap-scans.is-ready .is-play .ap-scans-box.is-cde rect,.ap-scans.is-ready .is-play .ap-scans-ns rect{animation:aps-fade .8s ease var(--d,0ms) both}
+.ap-scans.is-ready .is-play .ap-scans-box.is-cde rect{animation:aps-fade .8s ease var(--d,0ms) both;stroke-dasharray:6 5}
+.ap-scans.is-ready .is-play .ap-scans-ns rect{animation:aps-fade .8s ease var(--d,0ms) both;stroke-dasharray:4 4}
 .ap-scans.is-ready .ap-scans-box text,.ap-scans.is-ready .ap-scans-el,.ap-scans.is-ready .ap-scans-fw,.ap-scans.is-ready .ap-scans-bl.is-own,.ap-scans.is-ready .ap-scans-diagram>.ap-scans-bs{opacity:0}
 .ap-scans.is-ready .is-play .ap-scans-box text,.ap-scans.is-ready .is-play .ap-scans-el,.ap-scans.is-ready .is-play .ap-scans-fw,.ap-scans.is-ready .is-play .ap-scans-bl.is-own,.ap-scans.is-ready .is-play .ap-scans-diagram>.ap-scans-bs{animation:aps-fade .6s ease calc(var(--d,0ms) + 250ms) both}
 .ap-scans-node,.ap-scans-star{transform-box:fill-box;transform-origin:center}
